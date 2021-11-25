@@ -1,22 +1,21 @@
 import logo from './logo.svg';
 import './App.css';
 
-import { FirstComponent } from './FirstComponent';
+import { Button } from 'components/shared/Button';
+import { Slider } from 'components/shared/Slider';
+import { Table } from 'components/Table';
+import { Title } from 'components/Title';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
         <img data-type="logo" src={logo} className="App-logo" alt="logo" />
-        <FirstComponent number={37}>See you on Thursday</FirstComponent>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+        {/* <Title number={37}>See you on Tuesday</Title> */}
+        <Table />
+        {/* <Slider /> */}
+        {/* <Button primary>Learn React</Button>
+        <Button>Do not Learn Angular</Button> */}
       </header>
     </div>
   );
