@@ -3,9 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -16,7 +13,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install",
+    "lint": "eslint --fix"
   },
   "eslintConfig": {
     "extends": [
@@ -37,9 +36,18 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
     "babel-eslint": "^10.1.0",
     "eslint": "7.11.0",
     "eslint-config-react-app": "^6.0.0",
+    "husky": ">=6",
+    "lint-staged": ">=10",
     "prettier": "^2.4.1"
+  },
+  "lint-staged": {
+    "*.js": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
