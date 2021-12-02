@@ -1,14 +1,18 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
+
 import styles from './Counter.module.scss';
 
 class Counter extends Component {
-  static defaultProps = {
-    title: 'Default Title',
+  static propTypes = {
+    title: PropTypes.string,
   };
 
   state = {
-    value: 10,
+    value: 1,
   };
+
+  value = 2;
 
   handleMinusClick = () => {
     this.setState(prevState => ({ value: prevState.value - 1 }));
@@ -19,16 +23,29 @@ class Counter extends Component {
   };
 
   render() {
-    console.log({ props: this.props });
     return (
       <div>
         <h1>{this.props.title}</h1>
-        <h3>Value: {this.state.value}</h3>
+        <h3>Value: {this.value}</h3>
         <div className={styles.ButtonGroup}>
           <button onClick={this.handleMinusClick}>-</button>
-          <button onClick={this.handlePlusClick}>+</button>
+          <button
+            onClick={() => {
+              this.setState(prevState => ({ value: prevState.value + 1 }));
+            }}
+          >
+            +
+          </button>
         </div>
-        <button onClick={this.props.onTitleUpdate}>Control Button</button>
+        <button onClick={() => this.setState({ value: 0 })}>Rerender</button>
+        <button
+          onClick={() => {
+            console.log('Control Button click');
+            this.value = 11;
+          }}
+        >
+          Control Button
+        </button>
       </div>
     );
   }
