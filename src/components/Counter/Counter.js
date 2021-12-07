@@ -1,18 +1,49 @@
-import { Component } from 'react';
+import { Component, PureComponent } from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './Counter.module.scss';
 
-class Counter extends Component {
+class Counter extends PureComponent {
+  constructor(props) {
+    super(props);
+
+    console.log('Counter Constructor!');
+  }
+
   static propTypes = {
     title: PropTypes.string,
   };
 
   state = {
-    value: 1,
+    value: 0,
   };
 
-  value = 2;
+  intervalId = null;
+
+  componentDidMount() {
+    this.intervalId = setInterval(() => {
+      this.setState(prevState => ({
+        value: prevState.value + 1,
+      }));
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    if (this.intervalId) {
+      clearInterval(this.intervalId);
+    }
+  }
+
+  componentDidUpdate(prevProps) {}
+
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   console.log('nextprops title', nextProps.title);
+  //   if (nextProps.title.includes('test')) {
+  //     return false;
+  //   }
+
+  //   return true;
+  // }
 
   handleMinusClick = () => {
     this.setState(prevState => ({ value: prevState.value - 1 }));
@@ -23,11 +54,17 @@ class Counter extends Component {
   };
 
   render() {
+    console.log('render Constructor');
+
     return (
       <div>
-        <h1>{this.props.title}</h1>
-        <h3>Value: {this.value}</h3>
-        <div className={styles.ButtonGroup}>
+        <h1>
+          {this.props.title} {this.state.value}
+        </h1>
+        <div
+          ref={target => console.log('ref target', target)}
+          className={styles.ButtonGroup}
+        >
           <button onClick={this.handleMinusClick}>-</button>
           <button
             onClick={() => {
@@ -37,15 +74,6 @@ class Counter extends Component {
             +
           </button>
         </div>
-        <button onClick={() => this.setState({ value: 0 })}>Rerender</button>
-        <button
-          onClick={() => {
-            console.log('Control Button click');
-            this.value = 11;
-          }}
-        >
-          Control Button
-        </button>
       </div>
     );
   }
