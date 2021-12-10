@@ -18,9 +18,13 @@ export const getUsers = async () => {
   try {
     const response = await fetch(`${ENV.API_HOST}/user/list`);
 
-    const data = await response.json();
+    if (response.ok) {
+      const data = await response.json();
 
-    return data;
+      return data;
+    }
+
+    return [];
   } catch (error) {
     console.error(error);
   }
