@@ -5,14 +5,10 @@ import './App.css';
 
 import { Counter } from 'components/Counter';
 import { Table } from 'components/Table';
+import { Title } from 'components/Title';
+import { TitleContext } from 'contexts/Title';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-
-    console.log('App Constructor!');
-  }
-
   state = {
     appTitle: 'React 37!',
     open: false,
@@ -27,30 +23,31 @@ class App extends Component {
   };
 
   render() {
-    console.log('render App');
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1>{this.state.appTitle}</h1>
-          <div>
-            <input value={this.state.appTitle} onChange={this.handleChange} />
-          </div>
-          <img data-type="logo" src={logo} className="App-logo" alt="logo" />
-          {this.state.open && (
-            <Counter
-              title={this.state.appTitle}
-              arrProp={['Good', 'Neutral', 'Bad']}
-              onTitleUpdate={() => this.setState({ appTitle: 'New Value' })}
-            />
-          )}
-          <div>
-            <button onClick={this.handleClick}>
-              {this.state.open ? 'Close' : 'Open'}
-            </button>
-          </div>
-          <Table />
-        </header>
-      </div>
+      <TitleContext.Provider value={{ title: this.state.appTitle }}>
+        <div className="App">
+          <header className="App-header">
+            <Title>{this.state.appTitle}</Title>
+            <div>
+              <input value={this.state.appTitle} onChange={this.handleChange} />
+            </div>
+            <img data-type="logo" src={logo} className="App-logo" alt="logo" />
+            {this.state.open && (
+              <Counter
+                title={this.state.appTitle}
+                arrProp={['Good', 'Neutral', 'Bad']}
+                onTitleUpdate={() => this.setState({ appTitle: 'New Value' })}
+              />
+            )}
+            <div>
+              <button onClick={this.handleClick}>
+                {this.state.open ? 'Close' : 'Open'}
+              </button>
+            </div>
+            <Table />
+          </header>
+        </div>
+      </TitleContext.Provider>
     );
   }
 }

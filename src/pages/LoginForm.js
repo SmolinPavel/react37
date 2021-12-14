@@ -37,7 +37,7 @@ export class LoginForm extends Component {
 
   async componentDidMount() {
     this.setState({ loading: true });
-    const users = await getUsers();
+    const users = (await getUsers()) || [];
     this.setState({ users, loading: false });
   }
 
