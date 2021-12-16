@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 /* 
     Usage
     
-    const mobile = useMedia('(max-width: 56.25em)');
+    const mobile = useMedia('(max-width: 700px)');
 */
 
 export function useMedia(query) {

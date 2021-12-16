@@ -1,20 +1,67 @@
-import { useState, useEffect, useRef } from 'react';
+import {
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  memo,
+  useReducer,
+} from 'react';
 
 import { Legend } from './Legend';
 
+import { useMedia } from 'hooks/useMedia';
+
 import styles from './Counter.module.scss';
 
-export function Counter({ title }) {
-  const [value, setValue] = useState(0);
+/*
+
+state = {
+  value: 0,
+  value2: 0,
+}
+
+this.setState({ value: 2, value2: 4 })
+
+*/
+
+const initialState = {
+  value: 0,
+  value2: 0,
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'DECREMENT':
+      return { value: state.value - 1, value2: state.value2 - 2 };
+    case 'PARTIAL_DECREMENT':
+      return { ...state, value: state.value - 1 };
+    case 'DECREMENT_WITH_VALUE':
+      return { ...state, value: state.value - action.payload };
+    default:
+      throw state;
+  }
+}
+
+function CounterComponent({ title }) {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const mobile = useMedia('(max-width: 500px)');
+
   const intervalIdRef = useRef();
 
   const handleMinusClick = () => {
-    setValue(prevValue => prevValue - 1);
+    dispatch({ type: 'DECREMENT' });
   };
 
-  const handlePlusClick = () => {
-    setValue(prevValue => prevValue + 1);
-  };
+  const handlePlusClick = useCallback(() => {
+    dispatch({ type: 'DECREMENT_WITH_VALUE', payload: 10 });
+    // setValue(prevValue => prevValue + 1);
+    // setValue2(prevValue => prevValue + 2);
+  }, []);
+
+  const newTitle = useMemo(() => {
+    return title + ' some calculated value';
+  }, [title]);
 
   // open the Counter
   // change the title (prop)
@@ -31,9 +78,9 @@ export function Counter({ title }) {
   // componentDidMount
   useEffect(() => {
     intervalIdRef.current = setInterval(() => {
-      setValue(prevValue => prevValue + 1);
+      // setValue(prevValue => prevValue + 1);
+      // setValue2(prevValue => prevValue + 2);
     }, 1000);
-
     return () => {
       if (intervalIdRef.current) {
         clearInterval(intervalIdRef.current);
@@ -42,15 +89,19 @@ export function Counter({ title }) {
   }, []);
 
   const handleClearInterval = () => {
+    // setValue(0);
     if (intervalIdRef.current) {
       clearInterval(intervalIdRef.current);
     }
   };
 
+  console.log('RENDER');
+
   return (
     <div>
+      <h1>Mobile: {String(mobile)}</h1>
       <h1>
-        {title} {value}
+        {state.value} {state.value2}
       </h1>
       <div>
         <button onClick={handleClearInterval}>Clear interval</button>
@@ -63,3 +114,5 @@ export function Counter({ title }) {
     </div>
   );
 }
+
+export const Counter = memo(CounterComponent);

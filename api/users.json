@@ -1,5 +1,1 @@
-[
-  { "name": "TestName", "surname": "TestSurname", "gender": "male" },
-  { "name": "Olga", "surname": "Dorosh", "gender": "female" },
-  { "name": "NewUser", "surname": "Gibson", "gender": "male" }
-]
+[{"name":"TestName","surname":"TestSurname","gender":"male"},{"name":"Olga","surname":"Dorosh","gender":"female"},{"name":"NewUser","surname":"Gibson","gender":"male"},{"name":"test2","surname":"tttttt","gender":"male"}]
