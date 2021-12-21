@@ -1,55 +1,35 @@
-import { Component } from 'react';
+import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
-import logo from './logo.svg';
-import './App.css';
+import { ROUTES } from 'consts';
+import { Home } from 'pages/Home';
+import { Login } from 'pages/Login';
+import { Users } from 'pages/Users';
+import { UserDetail } from 'pages/UserDetail';
 
-import { Counter } from 'components/Counter';
-import { Table } from 'components/Table';
-import { Title } from 'components/Title';
-import { TitleContext } from 'contexts/Title';
-
-class App extends Component {
-  state = {
-    appTitle: 'React 37!',
-    open: false,
-  };
-
-  handleClick = () => {
-    this.setState({ open: !this.state.open });
-  };
-
-  handleChange = e => {
-    this.setState({ appTitle: e.target.value });
-  };
-
-  render() {
-    return (
-      <TitleContext.Provider value={{ title: this.state.appTitle }}>
-        <div className="App">
-          <header className="App-header">
-            <Title>{this.state.appTitle}</Title>
-            <div>
-              <input value={this.state.appTitle} onChange={this.handleChange} />
-            </div>
-            <img data-type="logo" src={logo} className="App-logo" alt="logo" />
-            {this.state.open && (
-              <Counter
-                title={this.state.appTitle}
-                arrProp={['Good', 'Neutral', 'Bad']}
-                onTitleUpdate={() => this.setState({ appTitle: 'New Value' })}
-              />
-            )}
-            <div>
-              <button onClick={this.handleClick}>
-                {this.state.open ? 'Close' : 'Open'}
-              </button>
-            </div>
-            <Table />
-          </header>
-        </div>
-      </TitleContext.Provider>
-    );
-  }
-}
-
-export default App;
+export const App = () => {
+  return (
+    <BrowserRouter>
+      <header>
+        <h1>This is app</h1>
+      </header>
+      <ul>
+        <li>
+          <Link to={ROUTES.LOGIN}>Login</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.HOME}>Home</Link>
+        </li>
+        <li>
+          <Link to={ROUTES.USERS}>Users</Link>
+        </li>
+      </ul>
+      <Switch>
+        <Route path={ROUTES.LOGIN} component={Login} />
+        <Route path={ROUTES.USER_DETAIL} component={UserDetail} />
+        <Route path={ROUTES.USERS} component={Users} />
+        <Route path={ROUTES.HOME} exact component={Home} />
+        <Redirect to={ROUTES.LOGIN} />
+      </Switch>
+    </BrowserRouter>
+  );
+};

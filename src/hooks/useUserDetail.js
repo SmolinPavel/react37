@@ -1,24 +1,24 @@
 import { useEffect, useState } from 'react';
 
-export function useUsers() {
-  const [users, setUsers] = useState([]);
+export function useUserDetail(id) {
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function fetchUsers() {
       setLoading(true);
       const response = await fetch(
-        'https://jsonplaceholder.typicode.com/users',
+        `https://jsonplaceholder.typicode.com/users/${id}`,
       );
 
-      const users = await response.json();
+      const user = await response.json();
 
-      setUsers(users);
+      setUser(user);
       setLoading(false);
     }
 
     fetchUsers();
   }, []);
 
-  return { users, loading };
+  return { user, loading };
 }
