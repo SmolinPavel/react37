@@ -1,10 +1,20 @@
+import { lazy, Suspense } from 'react';
 import { BrowserRouter, Route, Link, Switch, Redirect } from 'react-router-dom';
 
 import { ROUTES } from 'consts';
 import { Home } from 'pages/Home';
 import { Login } from 'pages/Login';
-import { Users } from 'pages/Users';
 import { UserDetail } from 'pages/UserDetail';
+// import { asyncComponent } from 'components/AsyncComponent';
+
+// const DynamicUsers = asyncComponent({
+//   loader: () => import('pages/Users'),
+//   loading: () => <h1>Loading...</h1>,
+// });
+
+const DynamicUsers = lazy(() =>
+  import('pages/Users' /* webpackChunkName: "users-page" */),
+);
 
 export const App = () => {
   return (
@@ -26,7 +36,19 @@ export const App = () => {
       <Switch>
         <Route path={ROUTES.LOGIN} component={Login} />
         <Route path={ROUTES.USER_DETAIL} component={UserDetail} />
-        <Route path={ROUTES.USERS} component={Users} />
+        <Route
+          path={ROUTES.USERS}
+          render={() => (
+            <>
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <DynamicUsers />
+              </Suspense>
+              <Suspense fallback={<h1>Loading...</h1>}>
+                <DynamicUsers />
+              </Suspense>
+            </>
+          )}
+        />
         <Route path={ROUTES.HOME} exact component={Home} />
         <Redirect to={ROUTES.LOGIN} />
       </Switch>

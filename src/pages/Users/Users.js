@@ -5,7 +5,7 @@ import { ROUTES } from 'consts';
 
 import styles from './Users.module.scss';
 
-export const Users = () => {
+const Users = () => {
   const { users } = useUsers();
 
   return (
@@ -26,3 +26,5 @@ export const Users = () => {
     </div>
   );
 };
+
+export default Users;

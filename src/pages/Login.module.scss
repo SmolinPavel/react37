@@ -1,17 +1,19 @@
 .Wrapper {
-  height: 100%;
   display: flex;
+  align-items: center;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
+
+  height: 100%;
 }
 
 .InputWrapper {
   margin: 1rem 0;
 
   > label {
-    width: 100px;
     display: inline-block;
+
+    width: 100px;
   }
 }
 
