@@ -39,14 +39,9 @@ export const App = () => {
         <Route
           path={ROUTES.USERS}
           render={() => (
-            <>
-              <Suspense fallback={<h1>Loading...</h1>}>
-                <DynamicUsers />
-              </Suspense>
-              <Suspense fallback={<h1>Loading...</h1>}>
-                <DynamicUsers />
-              </Suspense>
-            </>
+            <Suspense fallback={<h1>Loading...</h1>}>
+              <DynamicUsers />
+            </Suspense>
           )}
         />
         <Route path={ROUTES.HOME} exact component={Home} />
