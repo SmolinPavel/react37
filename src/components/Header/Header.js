@@ -9,7 +9,13 @@ const HeaderComponent = ({ balance, cart, value, addToCart }) => {
         Balance: {balance} / {value}
       </h3>
       <h3>Cart: {cart}</h3>
-      <button onClick={addToCart}>Add to cart</button>
+      <button
+        onClick={() => {
+          addToCart(50);
+        }}
+      >
+        Add to cart
+      </button>
     </header>
   );
 };
