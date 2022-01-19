@@ -9,8 +9,12 @@ export const addUser = async payload => {
       },
       body: JSON.stringify(payload),
     });
+
+    return payload;
   } catch (error) {
     console.error(error);
+
+    return error;
   }
 };
 

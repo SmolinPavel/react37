@@ -3,6 +3,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import { cartReducer } from './cart';
 import { userReducer } from './user';
+import { logger } from './middlewares/logger';
+import { tracker } from './middlewares/tracker';
 
 const reducer = combineReducers({
   cart: cartReducer,
@@ -11,4 +13,6 @@ const reducer = combineReducers({
 
 export const store = configureStore({
   reducer,
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(tracker, logger),
 });

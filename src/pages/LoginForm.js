@@ -1,7 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { addUser } from 'api/user';
-import { useUsers } from 'hooks/useUsers';
+import { addUserAction, getUsersAction } from 'store/user/actions';
+import {
+  getLoadingUsers,
+  getLoadingUser,
+  getUsers,
+} from 'store/user/selectors';
 
 import styles from './Login.module.scss';
 
@@ -32,8 +37,17 @@ FORM_CONFIG.forEach(field => {
 });
 
 export const LoginForm = () => {
-  const { users, loading } = useUsers();
   const [state, setState] = useState(initialState);
+
+  const dispatch = useDispatch();
+  const loading = useSelector(getLoadingUsers);
+  const loadingAddUser = useSelector(getLoadingUser);
+  const users = useSelector(getUsers);
+
+  useEffect(() => {
+    dispatch(getUsersAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleChange = event => {
     const { checked, name, type, value } = event.target;
@@ -52,7 +66,9 @@ export const LoginForm = () => {
       payload[field] = state[field];
     });
 
-    addUser(payload);
+    dispatch(addUserAction(payload));
+
+    setState(initialState);
   };
 
   return (
@@ -134,7 +150,7 @@ export const LoginForm = () => {
           </label>
         </div>
         <button type="submit" onClick={handleSubmit}>
-          Submit
+          {loadingAddUser ? 'Submit...' : 'Submit'}
         </button>
       </form>
     </>
