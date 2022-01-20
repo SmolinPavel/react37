@@ -13,6 +13,5 @@ const reducer = combineReducers({
 
 export const store = configureStore({
   reducer,
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(tracker, logger),
+  middleware: getDefaultMiddleware => getDefaultMiddleware(),
 });

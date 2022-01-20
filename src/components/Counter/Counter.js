@@ -3,7 +3,7 @@ import {
   useEffect,
   useRef,
   useCallback,
-  // useMemo,
+  useMemo,
   memo,
   useReducer,
 } from 'react';
@@ -59,9 +59,9 @@ function CounterComponent({ title }) {
     // setValue2(prevValue => prevValue + 2);
   }, []);
 
-  // const newTitle = useMemo(() => {
-  //   return title + ' some calculated value';
-  // }, [title]);
+  const newTitle = useMemo(() => {
+    return title + ' some calculated value';
+  }, [title]);
 
   // open the Counter
   // change the title (prop)
@@ -95,11 +95,10 @@ function CounterComponent({ title }) {
     }
   };
 
-  console.log('RENDER');
-
   return (
     <div>
       <h1>Mobile: {String(mobile)}</h1>
+      <h1>New title: {newTitle}</h1>
       <h1>
         {state.value} {state.value2}
       </h1>
