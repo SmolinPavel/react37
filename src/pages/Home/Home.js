@@ -22,6 +22,17 @@ export class Home extends Component {
     this.setState({ appTitle: e.target.value });
   };
 
+  async componentDidMount() {
+    const response = await fetch('http://localhost:3001/private', {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem('token')}`,
+      },
+    });
+    const privateData = await response.json();
+
+    alert(`Private data: ${privateData}`);
+  }
+
   render() {
     return (
       <TitleContext.Provider value={{ title: this.state.appTitle }}>

@@ -5,6 +5,7 @@ export const ENV = {
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
+  JWT: '/jwt',
   USERS: '/users',
   USER_DETAIL: '/users/:id',
 };

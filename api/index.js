@@ -1,12 +1,27 @@
 const fs = require('fs');
 const express = require('express');
 const cors = require('cors');
+const dotenv = require('dotenv');
+
+const { generateAccessToken } = require('./utils');
+const { authenticateToken } = require('./middlewares');
 
 const app = express();
+
+dotenv.config();
 
 // this line is required to parse the request body
 app.use(express.json());
 app.use(cors());
+
+app.post('/get-token', (req, res) => {
+  const token = generateAccessToken({ username: req.body.username });
+  res.json(token);
+});
+
+app.get('/private', authenticateToken, (req, res) => {
+  res.json(`This is a very secret message! ${req.user.username} rocks!`);
+});
 
 /* Create - POST method */
 app.post('/user/add', (req, res) => {

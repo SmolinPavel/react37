@@ -7,6 +7,7 @@ import { Header } from 'components/Header';
 import { Home } from 'pages/Home';
 import { Login } from 'pages/Login';
 import { UserDetail } from 'pages/UserDetail';
+import { JwtExample } from 'pages/JwtExample';
 import { store } from 'store';
 
 const DynamicUsers = lazy(() =>
@@ -26,12 +27,17 @@ export const App = () => {
             <Link to={ROUTES.HOME}>Home</Link>
           </li>
           <li>
+            <Link to={ROUTES.JWT}>Jwt</Link>
+          </li>
+          <li>
             <Link to={ROUTES.USERS}>Users</Link>
           </li>
         </ul>
         <Switch>
           <Route path={ROUTES.LOGIN} component={Login} />
           <Route path={ROUTES.USER_DETAIL} component={UserDetail} />
+          <Route path={ROUTES.JWT} component={JwtExample} />
+
           <Route
             path={ROUTES.USERS}
             render={() => (
