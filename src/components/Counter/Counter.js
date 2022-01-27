@@ -14,17 +14,6 @@ import { useMedia } from 'hooks/useMedia';
 
 import styles from './Counter.module.scss';
 
-/*
-
-state = {
-  value: 0,
-  value2: 0,
-}
-
-this.setState({ value: 2, value2: 4 })
-
-*/
-
 const initialState = {
   value: 0,
   value2: 0,

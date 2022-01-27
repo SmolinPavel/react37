@@ -8,7 +8,6 @@ import {
 } from 'store/cart';
 
 const HeaderComponent = ({ value, balance, addToCart, items }) => {
-  console.log('render', items);
   return (
     <header>
       <h3>Balance: {balance}</h3>
